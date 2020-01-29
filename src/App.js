@@ -14,6 +14,7 @@ import {
 import logo from "./logo.svg";
 import "./App.css";
 import Todos from "./components/Todos";
+import NewTodo from "./components/NewTodo";
 
 Amplify.configure(awsconfig);
 
@@ -51,6 +52,7 @@ function App() {
           >
             Learn React
           </a>
+          <NewTodo />
           <Todos />
         </header>
       </div>
