@@ -1,6 +1,23 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import { listTodos } from "../graphql/queries";
+import { filter } from "graphql-anywhere";
+import Todo from "./Todo";
+
+const listTodos = `
+  query ListTodos(
+    $filter: ModelTodoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        ...TodoFragment
+      }
+      nextToken
+    }
+  }
+  ${Todo.fragments.todo}
+`;
 
 const Todos = () => {
   const { loading, error, data } = useQuery(gql(listTodos));
@@ -12,7 +29,7 @@ const Todos = () => {
     <div>
       <div>Todos</div>
       {data.listTodos.items.map(todo => (
-        <div key={todo.id}>{todo.name}</div>
+        <Todo key={todo.id} {...filter(gql(Todo.fragments.todo), todo)} />
       ))}
     </div>
   );
