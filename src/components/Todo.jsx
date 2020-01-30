@@ -1,10 +1,13 @@
 import React from "react";
 
-const Todo = ({ name, description }) => {
+const Todo = ({ id, name, description, onDelete }) => {
   return (
     <div>
       {name}
       {description}
+      <button onClick={() => onDelete(id)} style={{ marginLeft: 10 }}>
+        delete
+      </button>
     </div>
   );
 };
