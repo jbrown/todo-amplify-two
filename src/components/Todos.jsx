@@ -3,7 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import { filter } from "graphql-anywhere";
 import Todo from "./Todo";
 
-const listTodos = `
+const QUERY = gql`
   query ListTodos(
     $filter: ModelTodoFilterInput
     $limit: Int
@@ -19,10 +19,32 @@ const listTodos = `
   ${Todo.fragments.todo}
 `;
 
-const Todos = () => {
-  const { loading, error, data } = useQuery(gql(listTodos));
+const updateTodosFetchMore = (previousResult, { fetchMoreResult }) => {
+  if (!fetchMoreResult) return previousResult;
 
-  if (loading) return "Loading...";
+  let {
+    listTodos: { __typename, items: oldItems }
+  } = previousResult;
+  let {
+    listTodos: { items: newItems, nextToken }
+  } = fetchMoreResult;
+
+  return {
+    listTodos: {
+      __typename,
+      items: [...oldItems, ...newItems],
+      nextToken
+    }
+  };
+};
+
+const Todos = () => {
+  const { loading, error, data, fetchMore } = useQuery(QUERY, {
+    notifyOnNetworkStatusChange: true,
+    variables: { limit: 4 }
+  });
+
+  if (loading && !(data && data.listTodos)) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
   return (
@@ -31,6 +53,21 @@ const Todos = () => {
       {data.listTodos.items.map(todo => (
         <Todo key={todo.id} {...filter(gql(Todo.fragments.todo), todo)} />
       ))}
+      {data.listTodos.nextToken && (
+        <div>
+          <button
+            onClick={() =>
+              fetchMore({
+                variables: { limit: 2, nextToken: data.listTodos.nextToken },
+                updateQuery: updateTodosFetchMore
+              })
+            }
+          >
+            Load more
+          </button>
+          {loading && <div>Loading more...</div>}
+        </div>
+      )}
     </div>
   );
 };
