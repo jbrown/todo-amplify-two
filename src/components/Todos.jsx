@@ -3,7 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import { filter } from "graphql-anywhere";
 import Todo from "./Todo";
 
-const QUERY = gql`
+export const QUERY = gql`
   query ListTodos(
     $filter: ModelTodoFilterInput
     $limit: Int

@@ -1,11 +1,32 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { createTodo } from "../graphql/mutations";
+import { QUERY } from "../components/Todos";
+import { prependToArray } from "../lib";
+
+const updateCreateTodo = (client, { data: { createTodo } }) => {
+  let origTodos = client.readQuery({
+    query: QUERY,
+    variables: { limit: 4 }
+  });
+  let data = {
+    listTodos: {
+      ...origTodos.listTodos,
+      items: prependToArray(origTodos.listTodos.items, createTodo)
+    }
+  };
+  client.writeQuery({
+    query: QUERY,
+    variables: { limit: 4 },
+    data
+  });
+};
 
 const NewTodo = () => {
   const [name, setName] = useState("");
   const [addTodo, { loading, error }] = useMutation(gql(createTodo), {
-    onCompleted: () => setName("")
+    onCompleted: () => setName(""),
+    update: updateCreateTodo
   });
 
   return (
