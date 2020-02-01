@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 describe("Authenticator:", function() {
   beforeEach(function() {
     cy.visit("/");
