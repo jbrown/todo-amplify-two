@@ -13,8 +13,7 @@ describe("Authenticator:", function() {
         .click();
 
       // Step 3: Make an assertion (Check for sign-out text)
-      // cy.get(selectors.signOutButton).contains("Sign Out");
-      cy.contains("Todos");
+      cy.get(selectors.signOutButton).contains("Sign Out");
     });
   });
 });

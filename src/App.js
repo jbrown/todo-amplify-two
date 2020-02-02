@@ -39,6 +39,11 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <header className="App-header">
+          <div>
+            <button data-test="sign-out-button" onClick={() => Auth.signOut()}>
+              Sign Out
+            </button>
+          </div>
           <NewTodo />
           <Todos />
         </header>
