@@ -12,7 +12,9 @@
     "aws-appsync": "^3.0.2",
     "aws-appsync-auth-link": "^2.0.1",
     "aws-appsync-subscription-link": "^2.0.1",
+    "bootstrap": "^4.4.1",
     "graphql-anywhere": "^4.2.6",
+    "jquery": "^3.4.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0"

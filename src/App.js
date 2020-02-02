@@ -11,8 +11,10 @@ import {
   from,
   InMemoryCache
 } from "@apollo/client";
-import "./App.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.bundle";
 import Todos from "./components/Todos";
+import Navbar from "./components/Navbar";
 import NewTodo from "./components/NewTodo";
 
 Amplify.configure(awsconfig);
@@ -37,17 +39,13 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className="App">
-        <header className="App-header">
-          <div>
-            <button data-test="sign-out-button" onClick={() => Auth.signOut()}>
-              Sign Out
-            </button>
-          </div>
+      <React.Fragment>
+        <Navbar onSignOut={() => Auth.signOut()} />
+        <div className="container">
           <NewTodo />
           <Todos />
-        </header>
-      </div>
+        </div>
+      </React.Fragment>
     </ApolloProvider>
   );
 }
