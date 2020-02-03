@@ -30,17 +30,25 @@ const NewTodo = () => {
   });
 
   return (
-    <div>
-      <input value={name} onChange={e => setName(e.target.value)} />
-      <button
-        onClick={() => {
-          if (name.length > 0) {
-            addTodo({ variables: { input: { name } } });
-          }
-        }}
-      >
-        Save
-      </button>
+    <div className="input-group">
+      <input
+        className="form-control"
+        value={name}
+        onChange={e => setName(e.target.value)}
+      />
+      <div className="input-group-append">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => {
+            if (name.length > 0) {
+              addTodo({ variables: { input: { name } } });
+            }
+          }}
+        >
+          Save
+        </button>
+      </div>
       {error && "An error occurred."}
       {loading && "Saving..."}
     </div>

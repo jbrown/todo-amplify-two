@@ -42,8 +42,12 @@ function App() {
       <React.Fragment>
         <Navbar onSignOut={() => Auth.signOut()} />
         <div className="container">
-          <NewTodo />
-          <Todos />
+          <div className="row">
+            <div className="col">
+              <NewTodo />
+              <Todos />
+            </div>
+          </div>
         </div>
       </React.Fragment>
     </ApolloProvider>

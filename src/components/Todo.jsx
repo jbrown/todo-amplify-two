@@ -1,13 +1,19 @@
 import React from "react";
 
-const Todo = ({ id, name, description, onDelete }) => {
+const Todo = ({ id, name, onDelete }) => {
   return (
-    <div>
-      {name}
-      {description}
-      <button onClick={() => onDelete(id)} style={{ marginLeft: 10 }}>
-        delete
-      </button>
+    <div className="d-flex">
+      <span className="flex-grow-1">{name}</span>
+      <div className="btn-group">
+        <button
+          type="button"
+          className="close"
+          aria-label="Close"
+          onClick={() => onDelete(id)}
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     </div>
   );
 };
@@ -17,7 +23,6 @@ Todo.fragments = {
   fragment TodoFragment on Todo {
     id
     name
-    description
   }
   `
 };

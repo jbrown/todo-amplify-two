@@ -72,15 +72,18 @@ const Todos = () => {
 
   return (
     <div>
-      <div>Todos</div>
       {isDeleting && <div>deleting todo...</div>}
-      {data.listTodos.items.map(todo => (
-        <Todo
-          key={todo.id}
-          onDelete={id => removeTodo({ variables: { input: { id } } })}
-          {...filter(gql(Todo.fragments.todo), todo)}
-        />
-      ))}
+      <ul className="list-group mt-2">
+        {data.listTodos.items.map(todo => (
+          <li className="list-group-item">
+            <Todo
+              key={todo.id}
+              onDelete={id => removeTodo({ variables: { input: { id } } })}
+              {...filter(gql(Todo.fragments.todo), todo)}
+            />
+          </li>
+        ))}
+      </ul>
       {data.listTodos.nextToken && (
         <div>
           <button

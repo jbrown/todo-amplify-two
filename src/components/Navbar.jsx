@@ -2,7 +2,7 @@ import React from "react";
 
 const Navbar = ({ onSignOut }) => {
   return (
-    <nav className="navbar navbar-expand-sm navbar-light bg-light">
+    <nav className="navbar navbar-expand-sm navbar-light bg-light mb-2">
       <span className="navbar-brand mb-0 h1">Todos</span>
       <button
         className="navbar-toggler"
