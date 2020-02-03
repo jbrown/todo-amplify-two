@@ -33,6 +33,7 @@ const NewTodo = () => {
     <div className="input-group">
       <input
         className="form-control"
+        placeholder="Add a todo..."
         value={name}
         onChange={e => setName(e.target.value)}
       />
