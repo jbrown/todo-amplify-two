@@ -3,9 +3,9 @@
 
 
 "@apollo/client@^3.0.0-beta.29":
-  version "3.0.0-beta.32"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-beta.32.tgz#de6c7b49f855ee36511471bd511bb9319a9da88b"
-  integrity sha512-LmxjFP/QQqqyvCHJEU04d74LbDe3Fmq3CpNzQGBLjCYZ6iCIJsjLHYX03GRngvFnx7Q9KdsfwNZ1QQmw52QiTQ==
+  version "3.0.0-beta.33"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-beta.33.tgz#1e8187e7e05cf2c6dfc6cc1773b16b7e4b594de1"
+  integrity sha512-aO8N3sH2VmhhBzVKoGxK7pdl81nK71YC16y0JkTEYoBGz0QCMsyRLcfGznX2VDJYbZNm8moLZxm9ZveDebZ4Sg==
   dependencies:
     "@types/zen-observable" "^0.8.0"
     "@wry/equality" "^0.1.9"
@@ -6183,9 +6183,9 @@ graphql-anywhere@^4.2.6:
     tslib "^1.10.0"
 
 graphql-tag@^2.10.1:
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.1.tgz#10aa41f1cd8fae5373eaf11f1f67260a3cad5e02"
-  integrity sha512-jApXqWBzNXQ8jYa/HLkZJaVw9jgwNqZkywa2zfFn16Iv1Zb7ELNHkJaXHR7Quvd5SIGsy6Ny7SUKATgnu05uEg==
+  version "2.10.3"
+  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.3.tgz#ea1baba5eb8fc6339e4c4cf049dabe522b0edf03"
+  integrity sha512-4FOv3ZKfA4WdOKJeHdz6B3F/vxBLSgmBcGeAFPf4n1F64ltJUvOOerNj0rsJxONQGdhUMynQIvd6LzB+1J5oKA==
 
 graphql@0.13.0:
   version "0.13.0"
