@@ -75,9 +75,8 @@ const Todos = () => {
       {isDeleting && <div>deleting todo...</div>}
       <ul data-test="todos-list-group" className="list-group mt-2">
         {data.listTodos.items.map(todo => (
-          <li className="list-group-item">
+          <li key={todo.id} className="list-group-item">
             <Todo
-              key={todo.id}
               onDelete={id => removeTodo({ variables: { input: { id } } })}
               {...filter(gql(Todo.fragments.todo), todo)}
             />
