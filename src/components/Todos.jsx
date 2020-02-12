@@ -73,7 +73,7 @@ const Todos = () => {
   return (
     <div>
       {isDeleting && <div>deleting todo...</div>}
-      <ul className="list-group mt-2">
+      <ul data-test="todos-list-group" className="list-group mt-2">
         {data.listTodos.items.map(todo => (
           <li className="list-group-item">
             <Todo

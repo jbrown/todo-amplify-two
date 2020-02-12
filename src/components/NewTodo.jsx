@@ -32,6 +32,7 @@ const NewTodo = () => {
   return (
     <div className="input-group">
       <input
+        data-test="new-todo-input"
         className="form-control"
         placeholder="Add a todo..."
         value={name}
@@ -39,6 +40,7 @@ const NewTodo = () => {
       />
       <div className="input-group-append">
         <button
+          data-test="save-new-todo-button"
           type="button"
           className="btn btn-primary"
           onClick={() => {
