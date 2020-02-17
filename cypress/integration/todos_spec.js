@@ -44,7 +44,8 @@ describe("Todos:", function() {
               default:
                 return responseStub({});
             }
-          });
+          })
+          .as("graphql stub");
 
         win.fetch.callThrough();
       }
