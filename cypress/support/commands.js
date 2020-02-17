@@ -23,3 +23,31 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+const responseStub = result =>
+  Promise.resolve({
+    json: () => Promise.resolve(result),
+    text: () => Promise.resolve(JSON.stringify(result)),
+    ok: true
+  });
+
+Cypress.Commands.add("mockGraphQL", (url, operations = {}) => {
+  cy.on("window:before:load", win => {
+    cy.stub(win, "fetch")
+      .withArgs(url)
+      .callsFake((url, { body }) => {
+        const { operationName } = JSON.parse(body);
+        const response = operations[operationName];
+
+        if (!response)
+          throw new Error(
+            `Operation "${operationName}" not stubbed for endpoint ${url}`
+          );
+
+        return responseStub(response);
+      })
+      .as("graphql stub");
+
+    win.fetch.callThrough();
+  });
+});
