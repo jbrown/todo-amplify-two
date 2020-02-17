@@ -31,13 +31,23 @@ const responseStub = result =>
     ok: true
   });
 
-Cypress.Commands.add("mockGraphQL", (url, operations = {}) => {
+Cypress.Commands.add("mockOperation", function(operationName, response) {
+  cy.get("@operations").then(operations => {
+    cy.wrap({
+      ...operations,
+      [operationName]: response
+    }).as("operations");
+  });
+});
+
+Cypress.Commands.add("mockGraphQL", function(url) {
+  cy.wrap({}).as("operations");
   cy.on("window:before:load", win => {
     cy.stub(win, "fetch")
       .withArgs(url)
       .callsFake((url, { body }) => {
         const { operationName } = JSON.parse(body);
-        const response = operations[operationName];
+        const response = this.operations[operationName];
 
         if (!response)
           throw new Error(

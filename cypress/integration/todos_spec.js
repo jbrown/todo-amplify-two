@@ -1,31 +1,34 @@
 import awsconfig from "../../src/aws-exports";
 
 describe("Todos:", function() {
-  it("allows a user to create a new todo", () => {
-    cy.mockGraphQL(awsconfig.aws_appsync_graphqlEndpoint, {
-      CreateTodo: {
-        data: {
-          createTodo: {
-            id: "4",
-            name: "Four",
-            __typename: "Todo"
-          }
-        }
-      },
-      ListTodos: {
-        data: {
-          listTodos: {
-            items: [
-              { id: "1", name: "One", __typename: "Todo" },
-              { id: "2", name: "Two", __typename: "Todo" },
-              { id: "3", name: "Three", __typename: "Todo" }
-            ],
-            nextToken: null,
-            __typename: "ModelTodoConnection"
-          }
+  beforeEach(function() {
+    cy.mockGraphQL(awsconfig.aws_appsync_graphqlEndpoint);
+  });
+
+  it("allows a user to create a new todo", function() {
+    cy.mockOperation("ListTodos", {
+      data: {
+        listTodos: {
+          items: [
+            { id: "1", name: "One", __typename: "Todo" },
+            { id: "2", name: "Two", __typename: "Todo" },
+            { id: "3", name: "Three", __typename: "Todo" }
+          ],
+          nextToken: null,
+          __typename: "ModelTodoConnection"
         }
       }
     });
+    cy.mockOperation("CreateTodo", {
+      data: {
+        createTodo: {
+          id: "4",
+          name: "Four",
+          __typename: "Todo"
+        }
+      }
+    });
+
     cy.visit("/");
     cy.get(selectors.usernameInput).type("testuser");
     cy.get(selectors.signInPasswordInput).type("password");
