@@ -45,6 +45,53 @@ describe("Todos:", function() {
 
     cy.get(selectors.todosList).should("have.length", 4);
   });
+
+  it("allows todos to be deleted", function() {
+    cy.mockOperation("ListTodos", {
+      data: {
+        listTodos: {
+          items: [
+            { id: "1", name: "One", __typename: "Todo" },
+            { id: "2", name: "Two", __typename: "Todo" }
+          ],
+          nextToken: null,
+          __typename: "ModelTodoConnection"
+        }
+      }
+    });
+
+    cy.mockOperation("DeleteTodo", {
+      data: {
+        deleteTodo: {
+          id: 1,
+          __typename: "Todo"
+        }
+      }
+    });
+
+    cy.visit("/");
+    cy.get(selectors.usernameInput).type("testuser");
+    cy.get(selectors.signInPasswordInput).type("password");
+    cy.get(selectors.signInSignInButton)
+      .contains("Sign In")
+      .click();
+
+    cy.get(selectors.signOutButton).contains("Sign Out");
+
+    cy.get(selectors.todosList).should("have.length", 2);
+
+    cy.get(selectors.todoListItem)
+      .first()
+      .as("firstTodo");
+    cy.get("@firstTodo")
+      .find('[data-test="todo-list-item__delete"]')
+      .click();
+
+    cy.get(selectors.todosList).should("have.length", 1);
+    cy.get(selectors.todoListItem)
+      .first()
+      .should("contain", "Two");
+  });
 });
 
 export const selectors = {
@@ -55,5 +102,6 @@ export const selectors = {
   signOutButton: '[data-test="sign-out-button"]',
   newTodoInput: '[data-test="new-todo-input"]',
   saveNewTodoButton: '[data-test="save-new-todo-button"]',
-  todosList: ".list-group-item"
+  todosList: ".list-group-item",
+  todoListItem: '[data-test="todo-list-item"]'
 };

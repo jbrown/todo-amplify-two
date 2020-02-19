@@ -2,10 +2,13 @@ import React from "react";
 
 const Todo = ({ id, name, onDelete }) => {
   return (
-    <div className="d-flex">
-      <span className="flex-grow-1">{name}</span>
+    <div data-test="todo-list-item" className="d-flex">
+      <span data-test="todo-list-item__name" className="flex-grow-1">
+        {name}
+      </span>
       <div className="btn-group">
         <button
+          data-test="todo-list-item__delete"
           type="button"
           className="close"
           aria-label="Close"
