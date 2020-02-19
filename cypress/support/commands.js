@@ -64,10 +64,17 @@ Cypress.Commands.add("mockGraphQL", function(url) {
             `Operation "${operationName}" not stubbed for endpoint ${url}`
           );
 
+        Cypress.log({
+          name: "mocked graphql response",
+          displayName: "GRAPHQL RESPONSE",
+          message: `${operationName} success`,
+          consoleProps: () => ({ response })
+        });
         return responseStub(response);
       })
       .as("graphql stub");
 
+    win.fetch.log(false);
     win.fetch.callThrough();
   });
 });
