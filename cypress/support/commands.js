@@ -32,16 +32,26 @@ const responseStub = result =>
   });
 
 Cypress.Commands.add("mockOperation", function(operationName, response) {
-  cy.get("@operations").then(operations => {
-    cy.wrap({
+  cy.get("@operations", { log: false }).then(operations => {
+    const newOperations = {
       ...operations,
       [operationName]: response
-    }).as("operations");
+    };
+    cy.wrap(newOperations, { log: false }).as("operations");
+    Cypress.log({
+      name: "mockOperation",
+      displayName: "STUB GRAPHQL OPERATION",
+      message: operationName,
+      consoleProps: () => ({
+        name: operationName,
+        response
+      })
+    });
   });
 });
 
 Cypress.Commands.add("mockGraphQL", function(url) {
-  cy.wrap({}).as("operations");
+  cy.wrap({}, { log: false }).as("operations");
   cy.on("window:before:load", win => {
     cy.stub(win, "fetch")
       .withArgs(url)
