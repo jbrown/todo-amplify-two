@@ -1,4 +1,5 @@
 import awsconfig from "../../src/aws-exports";
+import selectors from "../support/selectors";
 
 describe("Todos:", function() {
   beforeEach(function() {
@@ -30,13 +31,7 @@ describe("Todos:", function() {
     });
 
     cy.visit("/");
-    cy.get(selectors.usernameInput).type("testuser");
-    cy.get(selectors.signInPasswordInput).type("password");
-    cy.get(selectors.signInSignInButton)
-      .contains("Sign In")
-      .click();
-
-    cy.get(selectors.signOutButton).contains("Sign Out");
+    cy.login("testuser", "password");
 
     cy.get(selectors.todosList).should("have.length", 3);
 
@@ -70,13 +65,7 @@ describe("Todos:", function() {
     });
 
     cy.visit("/");
-    cy.get(selectors.usernameInput).type("testuser");
-    cy.get(selectors.signInPasswordInput).type("password");
-    cy.get(selectors.signInSignInButton)
-      .contains("Sign In")
-      .click();
-
-    cy.get(selectors.signOutButton).contains("Sign Out");
+    cy.login("testuser", "password");
 
     cy.get(selectors.todosList).should("have.length", 2);
 
@@ -93,15 +82,3 @@ describe("Todos:", function() {
       .should("contain", "Two");
   });
 });
-
-export const selectors = {
-  // Auth component classes
-  usernameInput: '[data-test="username-input"]',
-  signInPasswordInput: '[data-test="sign-in-password-input"]',
-  signInSignInButton: '[data-test="sign-in-sign-in-button"]',
-  signOutButton: '[data-test="sign-out-button"]',
-  newTodoInput: '[data-test="new-todo-input"]',
-  saveNewTodoButton: '[data-test="save-new-todo-button"]',
-  todosList: ".list-group-item",
-  todoListItem: '[data-test="todo-list-item"]'
-};

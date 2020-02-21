@@ -1,3 +1,4 @@
+import selectors from "./selectors";
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,6 +24,15 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("login", function(username, password) {
+  cy.get(selectors.usernameInput).type(username);
+  cy.get(selectors.signInPasswordInput).type(password);
+  cy.get(selectors.signInSignInButton)
+    .contains("Sign In")
+    .click();
+  cy.get(selectors.signOutButton).contains("Sign Out");
+});
 
 const responseStub = result =>
   Promise.resolve({
